@@ -21,6 +21,6 @@ RUN mkdir -p /opt/dotnet \
     && ln -s /opt/dotnet/dotnet /usr/local/bin
     
 
-# Dislay info installed components
+# Display info installed components
 RUN mono --version
 RUN dotnet --info
