@@ -14,12 +14,25 @@ RUN echo "deb http://download.mono-project.com/repo/debian wheezy/snapshots/4.2.
 
 
 
-# Install .NET Core 
+# Install .NET Core
 RUN mkdir -p /opt/dotnet \
-    && curl -Lsfo /opt/dotnet/dotnet-install.sh https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0-preview2/scripts/obtain/dotnet-install.sh \
-    && bash /opt/dotnet/dotnet-install.sh --version 1.0.0-preview2-003121 --install-dir /opt/dotnet \
+    && curl -Lsfo /opt/dotnet/dotnet-install.sh https://raw.githubusercontent.com/dotnet/cli/v1.0.0-preview2.0.1/scripts/obtain/dotnet-install.sh \
+    && bash /opt/dotnet/dotnet-install.sh --version 1.0.0-preview2-003131 --install-dir /opt/dotnet \
     && ln -s /opt/dotnet/dotnet /usr/local/bin
-    
+
+# Install NuGet
+RUN mkdir -p /opt/nuget \
+    && curl -Lsfo /opt/nuget/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+
+# Prime dotnet
+RUN mkdir dotnettest \
+    && cd dotnettest \
+    && dotnet new \
+    && dotnet restore \
+    && dotnet build \
+    && cd .. \
+    && rm -r dotnettest
+
 
 # Display info installed components
 RUN mono --version
