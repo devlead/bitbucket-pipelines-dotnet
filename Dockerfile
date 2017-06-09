@@ -17,7 +17,7 @@ RUN echo "deb http://download.mono-project.com/repo/debian wheezy/snapshots/4.2.
 # Install .NET Core
 RUN mkdir -p /opt/dotnet \
     && curl -Lsfo /opt/dotnet/dotnet-install.sh https://dot.net/v1/dotnet-install.sh \
-    && bash /opt/dotnet/dotnet-install.sh --version 1.0.1 --install-dir /opt/dotnet \
+    && bash /opt/dotnet/dotnet-install.sh --version 1.0.4 --install-dir /opt/dotnet \
     && ln -s /opt/dotnet/dotnet /usr/local/bin
 
 # Install NuGet
