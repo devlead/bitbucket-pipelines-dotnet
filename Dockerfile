@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 
 # Install Dependencies
 RUN apt-get update \
-	&& apt-get install -y curl gettext libunwind8 libcurl4-openssl-dev libicu-dev libssl-dev git
+	&& apt-get install -y curl gettext libunwind8 libcurl4-openssl-dev libicu-dev libssl-dev git unzip
 
 # Install mono
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
@@ -45,6 +45,22 @@ RUN cd cakeprimer \
     && cd .. \
     && rm -rf cakeprimer
 
+# Cake
+ENV CAKE_VERSION 0.20.0
+RUN mkdir -p /opt/Cake/Cake \
+    && curl -Lsfo Cake.zip "https://www.myget.org/F/cake/api/v2/package/Cake/$CAKE_VERSION" \
+    && unzip -q Cake.zip -d "/opt/Cake/Cake" \
+    && rm -f Cake.zip
+
+ADD cake /usr/bin/cake
+RUN chmod 755 /usr/bin/cake
+
+# Test Cake
+RUN mkdir caketest \
+    && cd caketest \
+    && cake --version \
+    && cd .. \
+    && rm -rf caketest
 
 # Display info installed components
 RUN mono --version
