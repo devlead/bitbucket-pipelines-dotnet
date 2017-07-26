@@ -46,7 +46,7 @@ RUN cd cakeprimer \
     && rm -rf cakeprimer
 
 # Cake
-ENV CAKE_VERSION 0.21.0
+ENV CAKE_VERSION 0.21.1
 RUN mkdir -p /opt/Cake/Cake \
     && curl -Lsfo Cake.zip "https://www.myget.org/F/cake/api/v2/package/Cake/$CAKE_VERSION" \
     && unzip -q Cake.zip -d "/opt/Cake/Cake" \
