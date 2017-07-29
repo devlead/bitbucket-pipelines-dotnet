@@ -24,6 +24,8 @@ RUN mkdir -p /opt/dotnet \
 RUN mkdir -p /opt/nuget \
     && curl -Lsfo /opt/nuget/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 
+ENV PATH "$PATH:/opt/nuget"
+
 # Prime dotnet
 RUN mkdir dotnettest \
     && cd dotnettest \
