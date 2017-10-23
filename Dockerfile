@@ -1,24 +1,23 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
-# Install Dependencies
+# Enable SSL
 RUN apt-get update \
-	&& apt-get install -y curl gettext libunwind8 libcurl4-openssl-dev libicu-dev libssl-dev git unzip
-
-# Install mono
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-
-RUN echo "deb http://download.mono-project.com/repo/debian wheezy/snapshots/4.4.2 main" > /etc/apt/sources.list.d/mono-xamarin.list \
-	&& apt-get update \
-	&& apt-get install -y mono-devel ca-certificates-mono fsharp mono-vbnc nuget \
-	&& rm -rf /var/lib/apt/lists/*
-
-
+    && apt-get install -y apt-transport-https curl tzdata git
 
 # Install .NET Core
-RUN mkdir -p /opt/dotnet \
-    && curl -Lsfo /opt/dotnet/dotnet-install.sh https://dot.net/v1/dotnet-install.sh \
-    && bash /opt/dotnet/dotnet-install.sh --version 1.0.4 --install-dir /opt/dotnet \
-    && ln -s /opt/dotnet/dotnet /usr/local/bin
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg \
+    && mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg \
+    && sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-xenial-prod xenial main" > /etc/apt/sources.list.d/dotnetdev.list' \
+    && apt-get update \
+    && apt-get install -y dotnet-dev-1.1.4 unzip
+
+
+# Install mono
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF \
+    && echo "deb http://download.mono-project.com/repo/debian wheezy/snapshots/4.4.2 main" > /etc/apt/sources.list.d/mono-xamarin.list \
+    && apt-get update \
+    && apt-get install -y mono-devel \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install NuGet
 RUN mkdir -p /opt/nuget \
@@ -49,7 +48,7 @@ RUN cd cakeprimer \
     && rm -rf cakeprimer
 
 # Cake
-ENV CAKE_VERSION 0.22.2
+ENV CAKE_VERSION 0.23.0
 RUN mkdir -p /opt/Cake/Cake \
     && curl -Lsfo Cake.zip "https://www.myget.org/F/cake/api/v2/package/Cake/$CAKE_VERSION" \
     && unzip -q Cake.zip -d "/opt/Cake/Cake" \
@@ -68,3 +67,4 @@ RUN mkdir caketest \
 # Display info installed components
 RUN mono --version
 RUN dotnet --info
+RUN apt-get clean
