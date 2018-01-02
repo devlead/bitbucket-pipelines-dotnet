@@ -49,7 +49,7 @@ RUN cd cakeprimer \
 
 # Cake
 ENV CAKE_NUGET_USEINPROCESSCLIENT true
-ENV CAKE_VERSION 0.23.0
+ENV CAKE_VERSION 0.24.0
 RUN mkdir -p /opt/Cake/Cake \
     && curl -Lsfo Cake.zip "https://www.myget.org/F/cake/api/v2/package/Cake/$CAKE_VERSION" \
     && unzip -q Cake.zip -d "/opt/Cake/Cake" \
