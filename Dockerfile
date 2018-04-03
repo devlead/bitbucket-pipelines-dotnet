@@ -29,8 +29,6 @@ RUN mkdir dotnettest \
     && cd cakeprimer \
     && dotnet restore Cake.sln \
     --source "https://www.myget.org/F/xunit/api/v3/index.json" \
-    --source "https://dotnet.myget.org/F/dotnet-core/api/v3/index.json" \
-    --source "https://dotnet.myget.org/F/cli-deps/api/v3/index.json" \
     --source "https://api.nuget.org/v3/index.json" \
      /property:UseTargetingPack=true \
     && cd .. \
