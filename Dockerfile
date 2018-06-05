@@ -35,11 +35,13 @@ RUN mkdir dotnettest \
     && rm -rf cakeprimer
 
 # Install Cake & Test Cake & Display info installed components
-ADD cake /usr/bin/cake
-ENV CAKE_VERSION 0.26.1
+
+ENV CAKE_VERSION 0.28.0
 ENV CAKE_SETTINGS_SKIPVERIFICATION true
+
+ADD cake /usr/bin/cake
 RUN mkdir -p /opt/Cake/Cake \
-    && curl -Lsfo Cake.zip "https://www.myget.org/F/cake/api/v2/package/Cake/$CAKE_VERSION" \
+    && curl -Lsfo Cake.zip "https://api.nuget.org/v2/package/Cake/$CAKE_VERSION" \
     && unzip -q Cake.zip -d "/opt/Cake/Cake" \
     && rm -f Cake.zip \
     && chmod 755 /usr/bin/cake \
