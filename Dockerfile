@@ -38,7 +38,7 @@ RUN mkdir dotnettest \
 
 # Install Cake & Test Cake & Display info installed components
 
-ENV CAKE_VERSION 0.29.0
+ENV CAKE_VERSION 0.30.0
 ENV CAKE_SETTINGS_SKIPVERIFICATION true
 
 ADD cake /usr/bin/cake
