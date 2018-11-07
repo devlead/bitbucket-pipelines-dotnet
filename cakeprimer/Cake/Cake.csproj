@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyName>Cake</AssemblyName>
-    <TargetFrameworks Condition=" '$(PackAsTool)' != 'true'">net461;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(PackAsTool)' != 'true'">net461;netcoreapp2.0</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <PlatformTarget>AnyCpu</PlatformTarget>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -15,7 +15,7 @@
   </ItemGroup>
   <!-- Global packages -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="2.8.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="2.9.0" />
     <PackageReference Include="Autofac" Version="4.6.2" />
   </ItemGroup>
 </Project>
